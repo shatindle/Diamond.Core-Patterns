@@ -52,6 +52,6 @@ jobs:
       shell: powershell
       run: |
         .\.sonar\scanner\dotnet-sonarscanner begin /k:"shatindle_Diamond.Core-Patterns" /o:"shatindle" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-        dotnet restore ".\Src\Diamond.Core Patterns Solutions.sln"
-        dotnet build ".\Src\Diamond.Core Patterns Solutions.sln" --no-restore --configuration Debug
+        dotnet restore ./Src/Diamond.Core\ Patterns\ Solutions.sln
+        dotnet build ./Src/Diamond.Core` Patterns` Solutions.sln --no-restore --configuration Debug
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
