@@ -45,9 +45,6 @@ jobs:
       run: |
         New-Item -Path .\.sonar\scanner -ItemType Directory
         dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-    - name: Restore dependencies
-      working-directory: ./Src/
-      run: dotnet restore
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -55,7 +52,6 @@ jobs:
       shell: powershell
       run: |
         .\.sonar\scanner\dotnet-sonarscanner begin /k:"shatindle_Diamond.Core-Patterns" /o:"shatindle" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-        cd .\Src\
-        dotnet build --no-restore
-        cd ..
+        dotnet restore ".\Src\Diamond.Core Patterns Solutions.sln"
+        dotnet build ".\Src\Diamond.Core Patterns Solutions.sln" --no-restore --configuration Debug
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
